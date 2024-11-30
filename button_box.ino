@@ -48,7 +48,6 @@ constexpr uint8_t DIR_CW = 0x20;
 constexpr uint8_t R_START = 0x0;
 
 #ifdef HALF_STEP
-
 constexpr uint8_t R_CCW_BEGIN = 0x1;
 constexpr uint8_t R_CW_BEGIN = 0x2;
 constexpr uint8_t R_START_M = 0x3;
@@ -68,7 +67,6 @@ const unsigned char ttable[6][4] = {
   // R_CCW_BEGIN_M
   {R_START_M,            R_CCW_BEGIN_M,  R_START_M,    R_START | DIR_CCW},
 };
-
 #else
 
 constexpr uint8_t R_CW_BEGIN = 0x2;
@@ -95,14 +93,6 @@ const unsigned char ttable[7][4] = {
 };
 #endif
 
-void checkAllButtons() {
-    if (!buttbx.getKeys()) return;
-        for (int i = 0; i < LIST_MAX; ++i) {
-            if (!buttbx.key[i].stateChanged) continue; 
-                bool isPressed = (buttbx.key[i].kstate == PRESSED || buttbx.key[i].kstate == HOLD);
-                Joystick.setButton(buttbx.key[i].kchar, isPressed);
-    }
-}
 
 void initEncoders() {
   for (int i = 0; i < NUMROTARIES; i++) {
@@ -115,10 +105,13 @@ void initEncoders() {
   }
 }
 
-unsigned char processEncoder(int i) {
-  unsigned char pinstate = (digitalRead(rotaries[i].pin2) << 1) | digitalRead(rotaries[i].pin1);
-  rotaries[i].state = ttable[rotaries[i].state & 0xf][pinstate];
-  return (rotaries[i].state & 0x30);
+void checkAllButtons() {
+    if (!buttbx.getKeys()) return;
+        for (int i = 0; i < LIST_MAX; ++i) {
+            if (!buttbx.key[i].stateChanged) continue; 
+                bool isPressed = (buttbx.key[i].kstate == PRESSED || buttbx.key[i].kstate == HOLD);
+                Joystick.setButton(buttbx.key[i].kchar, isPressed);
+    }
 }
 
 void checkAllEncoders(void) {
@@ -135,6 +128,12 @@ void checkAllEncoders(void) {
       Joystick.setButton(rotaries[i].cwchar, 0);
     };
   }
+}
+
+unsigned char processEncoder(int i) {
+  unsigned char pinstate = (digitalRead(rotaries[i].pin2) << 1) | digitalRead(rotaries[i].pin1);
+  rotaries[i].state = ttable[rotaries[i].state & 0xf][pinstate];
+  return (rotaries[i].state & 0x30);
 }
 
 void setup() {
