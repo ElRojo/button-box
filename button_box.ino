@@ -18,8 +18,8 @@ const byte buttons[NUMROWS][NUMCOLS] = {
 };
 
 // arduino pins for rows and columns
-byte rowPins[NUMROWS] = {21,20,19,18}; 
-byte colPins[NUMCOLS] = {15,14,16,10}; 
+byte rowPins[NUMROWS] = {21,20,19,18};
+byte colPins[NUMCOLS] = {15,14,16,10};
 
 struct RotaryEncoder {
   byte pin1;
@@ -30,15 +30,15 @@ struct RotaryEncoder {
 };
 
 RotaryEncoder rotaries[NUMROTARIES] {
-  {3, 2, 24, 25, 0},
-  {5, 4, 26, 27, 0},
-  {7, 6, 28, 29, 0},
-  {9, 8, 30, 31, 0}
+  {3, 2, 15, 17, 0},
+  {5, 4, 18, 19, 0},
+  {7, 6, 20, 21, 0},
+  {9, 8, 22, 23, 0}
 };
 
 
-Keypad buttbx = Keypad( makeKeymap(buttons), rowPins, colPins, NUMROWS, NUMCOLS); 
-Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, 
+Keypad buttbx = Keypad( makeKeymap(buttons), rowPins, colPins, NUMROWS, NUMCOLS);
+Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,
   JOYSTICK_TYPE_JOYSTICK, 32, 0,
   false, false, false, false, false, false,
   false, false, false, false, false);
@@ -108,7 +108,7 @@ void initEncoders() {
 void checkAllButtons() {
     if (!buttbx.getKeys()) return;
         for (int i = 0; i < LIST_MAX; ++i) {
-            if (!buttbx.key[i].stateChanged) continue; 
+            if (!buttbx.key[i].stateChanged) continue;
                 bool isPressed = (buttbx.key[i].kstate == PRESSED || buttbx.key[i].kstate == HOLD);
                 Joystick.setButton(buttbx.key[i].kchar, isPressed);
     }
@@ -118,13 +118,13 @@ void checkAllEncoders(void) {
   for (int i = 0; i < NUMROTARIES; i++) {
     unsigned char result = processEncoder(i);
     if (result == DIR_CCW) {
-      Joystick.setButton(rotaries[i].ccwchar, 1); 
-      delay(50); 
+      Joystick.setButton(rotaries[i].ccwchar, 1);
+      delay(50);
       Joystick.setButton(rotaries[i].ccwchar, 0);
     };
     if (result == DIR_CW) {
-      Joystick.setButton(rotaries[i].cwchar, 1); 
-      delay(50); 
+      Joystick.setButton(rotaries[i].cwchar, 1);
+      delay(50);
       Joystick.setButton(rotaries[i].cwchar, 0);
     };
   }
@@ -141,7 +141,7 @@ void setup() {
   initEncoders();
 }
 
-void loop() { 
+void loop() {
   checkAllEncoders();
   checkAllButtons();
 }
