@@ -7,7 +7,7 @@
 - [Box](#box)
 - [Mounting Options](#mounting-options)
 
-
+Click the Thumbnail for a How-To Video:
 [![Youtube Video](./yt.jpg)](https://www.youtube.com/watch?v=mfEdV4Y3NAQ)
 
 ## Purchase List
