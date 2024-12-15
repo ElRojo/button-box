@@ -8,6 +8,8 @@
 - [Mounting Options](#mounting-options)
 
 
+[![Youtube Video](./yt.jpg)](https://www.youtube.com/watch?v=mfEdV4Y3NAQ)
+
 ## Purchase List
 - [USB-C Pro Micro](https://a.co/d/40r7Z8c)
 - [Toggle Switch with Aircraft Guard](https://a.co/d/8zprb8W)
