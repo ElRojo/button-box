@@ -30,7 +30,7 @@ struct RotaryEncoder {
 };
 
 RotaryEncoder rotaries[NUMROTARIES] {
-  {3, 2, 15, 17, 0},
+  {3, 2, 16, 17, 0},
   {5, 4, 18, 19, 0},
   {7, 6, 20, 21, 0},
   {9, 8, 22, 23, 0}
